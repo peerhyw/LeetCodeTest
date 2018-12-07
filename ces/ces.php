@@ -194,3 +194,47 @@ $exampleII = function () use ($message){
 };
 
 $exampleII();
+echo '------------'.PHP_EOL;
+
+class a{
+    private static $a = 'a';
+
+    public function print(){
+        echo __CLASS__.' '.static::$a.PHP_EOL;
+    }
+
+    public function printself(){
+        echo __CLASS__.' '.self::$a.PHP_EOL;
+    }
+
+    public static function test(){
+        static::who();
+    }
+
+    private static function who(){
+        echo "class a: ".__CLASS__.PHP_EOL;
+    }
+}
+
+class b extends a{
+    protected static $a = 'b';
+
+    protected static function who(){
+        echo "class b: ".__CLASS__.PHP_EOL;
+    }
+}
+
+//static 子类会覆盖父类的实现 无论是方法还是属性
+$a = new a();
+$a->print();
+$a->printself();
+$a->test();
+
+$b = new b();
+$b->print();
+$b->printself();
+
+$b->test();
+
+a::test();
+b::test();
